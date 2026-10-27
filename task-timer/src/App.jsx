@@ -1,14 +1,26 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import Nav from './components/Nav';
+import TasksView from './views/TasksView';
+import StatsView from './views/StatsView';
+import SettingsView from './views/SettingsView';
+import InfoView from './views/InfoView';
+import './App.css';
 
 function App() {
+  const [view, setView] = useState('info');
+  const [dark, setDark] = useState(false);
+
+
   return (
-    <div>
-      <h1>Hi</h1>
-      <p>My first component</p>
+    <div className={dark ? 'app dark': 'app'}>
+      <Nav view={view} setView={setView} />
+      <main>
+        {view === 'tasks' && <TasksView />}
+        {view === 'stats' && <StatsView />}
+        {view === 'settings' && <SettingsView />}
+        {view === 'info' && <InfoView />}
+      </main>
+      <button onClick = {() => setDark(!dark)}> {dark ? 'light mode' : 'dark mode'} </button>
     </div>
   );
 }
